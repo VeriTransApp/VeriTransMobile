@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:veritransmobile/screens/authentication/driver_authentication/dlogin_page.dart';
 import 'package:veritransmobile/utils/general_widgets/components.dart';
 
 import '../../animation/slideanimate.dart';
@@ -12,13 +13,15 @@ class UserSelector extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          Image(image: AssetImage('assets/images/vlogo.jpeg')),
-          SizedBox(height: 50,),
+          const Image(image: AssetImage('assets/images/vlogo.jpeg')),
+          const SizedBox(height: 170,),
           PrimaryButton(text: 'DRIVER', onPressed: (){
+            nextScreen(context, SlideAnimate(const DriverLogin()));
+          }),
+          const SizedBox(height: 20,),
+          PrimaryButton(text: 'USER', onPressed: (){
             nextScreen(context, SlideAnimate(const UserLogin()));
           }),
-          SizedBox(height: 20,),
-          PrimaryButton(text: 'CUSTOMER', onPressed: (){}),
         ],
       ),
     );

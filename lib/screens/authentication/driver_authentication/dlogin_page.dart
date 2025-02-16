@@ -2,25 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:veritransmobile/animation/bottomup.dart';
 import 'package:veritransmobile/animation/fadeanimate.dart';
 import 'package:veritransmobile/animation/slideanimate.dart';
-import 'package:veritransmobile/controllers/form_fields_controller.dart';
+import 'package:veritransmobile/screens/authentication/driver_authentication/dsignup_page.dart';
 import 'package:veritransmobile/screens/authentication/driver_authentication/forgot_password.dart';
-import 'package:veritransmobile/screens/authentication/user_authentication.dart/uotp_page.dart';
-import 'package:veritransmobile/screens/authentication/user_authentication.dart/usignup_page.dart';
-import 'package:veritransmobile/screens/home_display/dashboard.dart';
 import 'package:veritransmobile/utils/general_widgets/main_screen.dart';
 
 import '../../../utils/general_widgets/components.dart';
 import '../../extras/app_colors.dart';
 import '../../extras/custom_scaffold.dart';
 
-class UserLogin extends StatefulWidget {
-  const UserLogin({super.key});
+class DriverLogin extends StatefulWidget {
+  const DriverLogin({super.key});
 
   @override
-  State<UserLogin> createState() => _UserLoginState();
+  State<DriverLogin> createState() => _DriverLoginState();
 }
 
-class _UserLoginState extends State<UserLogin> {
+class _DriverLoginState extends State<DriverLogin> {
   final _formSignInKey = GlobalKey<FormState>();
   bool rememberPassword = true;
 final TextEditingController _numberController = TextEditingController();
@@ -48,7 +45,6 @@ final TextEditingController _numberController = TextEditingController();
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const SizedBox(height: 50,),
                       const Text('Sign In'),
                       const Text(
                         'Welcome back!',
@@ -58,8 +54,105 @@ final TextEditingController _numberController = TextEditingController();
                           color: AppColors.primaryTextColor,
                         ),
                       ),
-                      const SizedBox(height: 65.0),
-                      numberFormField(_numberController), 
+                      const SizedBox(height: 40.0),                   
+                      TextFormField(
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter Email';
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                          label: const Text('Your Email'),
+                          hintText: 'Enter Email',
+                          hintStyle: const TextStyle(
+                            color: Colors.black26,
+                          ),
+                          border: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Colors.black12, // Default border color
+                            ),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Colors.black12, // Default border color
+                            ),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 25.0),                     
+                      TextFormField(
+                        obscureText: true,
+                        obscuringCharacter: '*',
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter Password';
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                          // focusColor: AppColors.secondaryTextColor,
+                          fillColor: AppColors.secondaryTextColor,
+                          label: const Text('Your Password'),
+                          hintText: 'Enter Password',
+                          hintStyle: const TextStyle(
+                            color: Colors.grey,
+                          ),
+                          border: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Colors.black12, // Default border color
+                            ),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Colors.black12, // Default border color
+                            ),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 10.0),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Checkbox(
+                                value: rememberPassword,
+                                onChanged: (bool? value) {
+                                  setState(() {
+                                    rememberPassword = value!;
+                                  });
+                                }, //////////
+                                activeColor: AppColors.secondaryTextColor,
+                              ),
+                              const Text(
+                                'Remember me',
+                                style: TextStyle(
+                                  color: Colors.black45,
+                                ),
+                              ),
+                            ],
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              //navigate to forget password screen
+                              nextScreen(context, FadeAnimate(ForgetPasswordPage()));
+                            },
+                            child: Text(
+                              'Forget password?',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.secondaryTextColor,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      // numberFormField(_numberController), 
                       const SizedBox(height: 25.0),
                       PrimaryButton(
                         text: 'SIGN IN',
@@ -81,8 +174,7 @@ final TextEditingController _numberController = TextEditingController();
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text('Processing Data...')),
                           );
-                          //Fix the int part below
-                          nextScreen(context, SlideAnimate(UserOTPPage(phoneNumber: 0,)));
+                          nextScreen(context, BottomUpAnimate(MainScreen()));
 
                           //FUNCTIONS FOR BETTER VALIDATIONS & FIREBASE
                           // Simulated authentication function
@@ -150,7 +242,7 @@ final TextEditingController _numberController = TextEditingController();
                           GestureDetector(
                             onTap: () {
                               nextScreen(
-                                  context, SlideAnimate(const UserSignup()));
+                                  context, SlideAnimate(const DriverSignup()));
                             },
                             child: Text(
                               'Sign up',

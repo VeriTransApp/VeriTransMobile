@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:veritransmobile/screens/extras/app_colors.dart';
 import 'package:veritransmobile/screens/extras/onboarding.dart';
 
 void main() async {
   //these ensure the splash screen works (icon that appears when app is launched)
+  //we havent decided on the logo yet
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Future.delayed(const Duration(seconds: 10));
+  await Future.delayed(const Duration(seconds: 5));
   FlutterNativeSplash.remove();
   runApp(const MyApp());
 }
@@ -14,13 +16,12 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'VeriTrans',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.secondaryTextColor), //secondary text color is the green
         useMaterial3: true,
       ),
       home: const OnboardingScreen(),

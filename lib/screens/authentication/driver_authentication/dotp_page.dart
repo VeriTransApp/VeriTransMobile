@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:veritransmobile/animation/bottomup.dart';
-import 'package:veritransmobile/animation/fadeanimate.dart';
 import 'package:veritransmobile/screens/authentication/driver_authentication/reset_password.dart';
-import 'package:veritransmobile/utils/general_widgets/main_screen.dart';
 
 import '../../../utils/general_widgets/components.dart';
 
 
-class UserOTPPage extends StatelessWidget {
-  final int phoneNumber;
+class DriverOTPPage extends StatelessWidget {
+  final String email;
   final TextEditingController _otpController = TextEditingController();
 
-  UserOTPPage({super.key, required this.phoneNumber});
+  DriverOTPPage({super.key, required this.email});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +27,7 @@ class UserOTPPage extends StatelessWidget {
             const SizedBox(height: 60),
             Center(
               child: Text(
-                'Enter the OTP sent to $phoneNumber',
+                'Enter the OTP sent to $email',
                 style: const TextStyle(fontSize: 16),
               ),
             ),
@@ -54,7 +52,7 @@ class UserOTPPage extends StatelessWidget {
               },
               onCompleted: (value) {
                 // Called when the user completes the OTP
-                // Maybe we will automatically verify the OTP here if needed
+                // You can automatically verify the OTP here if needed
               },
             ),
             const SizedBox(height: 20),
@@ -73,7 +71,7 @@ class UserOTPPage extends StatelessWidget {
             //   },
             //   child: Text('Verify OTP'),
             // ),
-            PrimaryButton(text: 'VERIFY OTP', onPressed: (){nextScreen(context, BottomUpAnimate( MainScreen()));})
+            PrimaryButton(text: 'VERIFY OTP', onPressed: (){nextScreen(context, BottomUpAnimate( ResetPasswordPage(email: '',)));})
           ],
         ),
       ),
